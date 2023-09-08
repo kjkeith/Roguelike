@@ -1,0 +1,134 @@
+1/23 KJK - Started work on generating the edges (sides and tops) of the dungeon.
+	     - Worked on a method to print this generated map.
+	    !- Completed this functionality by printing these characters individually in a for loop.
+	    !- Program now prints out an 80x21 grid with edge characters.
+
+1/25 KJK - Began work on room generation. Began with using a room number value of 1. 
+	     - Created Dungeon, Map,  and Room structs to better organize variables such as numRooms in the dungeon and individual tile hardness.
+	     - Placed a single room by randomly generating x and y variables to introduce a point in the dungeon that was in the bounds of the dungeon edges.
+	     - Developed a way to make sure the room fit within the edges without extending outside of the bounds.
+	    !- Successfully generated more than one room before adjusting up to the minimum number of 6 rooms.
+	    !- Rooms generated successfully when a random seed was used and consistently generated the same map with a predetermined seed.
+
+1/27 KJK - Began work on generating paths by determining the centroid of one room and the next room in the queue.
+	     - Used a process described by Professor Schaefer to determine the direction that the cursor should move in.
+	    !- Corridors were successfully generated between multiple rooms.
+	     - Began work on stair generation by first selecting a random room and then a random point within the room.
+	    !- 2 stairs (one up, one down) generated successfully at random throughout the dungeon floor.
+
+1/31 KJK - Created Makefile.
+	     - Created README file.
+
+2/4 KJK	- Began work on adding load/save functionality, with a primary focus on getting save working. 
+	    !- Built *getSaveFile(char *mode) function to easily access the necessary file. Decided to make this its own function as both saving and loading utilized the same location.
+	
+2/7 KJK - Continued working on save file generation. Used debugger within CLion to ensure correct values were being written.
+        !- Implemented save with the ordinary execution of the program. Program did not crash and save file was generated.
+	    - Began work with a focus on the load functionality.
+
+2/8 KJK !- Implemented load functionality. Loaded yesterday's save file and compared its output to that of the same seed. 
+	    !- Began testing with the Professors provided examples. (Note: A PC has not yet been implemented on my side.)
+	    !- Ensured load and saved worked in tandem to load and resave a dungeon.
+	
+	    - Created README
+
+2/11 KJK - Built player struct for use with implementation in player position. Plan to also use this for player stats.
+         !- Implemented the player struct in dungeon generation and saving/loading. Tested implementation and confirmed it to work with previous working code ...
+
+2/13 KJK - Began work on creating a priority queue, similarly set up to Professor Schaefer's stack.h.
+         - Started work on implementing Djikstra's algorithm in the form of buildDistanceMap(). A function in dungeon.c that utilizes the priority queue functions.
+         !- Completed work on priority queue and djikstra's algorithm (pre-testing). Printed analyzed data in the queue to consider relevancy.
+
+2/15 KJK - Began work on printing out the queue in a readable dungeon layout. Changed some things with the priority.c file to better align with the plans for the distanceMap.
+         !- Finished work to print out the necessities of the distance maps, with statements to differ those of the the non-tunneling and tunneling monsters.
+         - Created some bugs to debug later ... (The distance maps continuously print Xs [inaccessible areas], despite appearing accessible on the original dungeon map)
+
+2/17 KJK !- Fixed logic that caused Xs to print where they should not be.
+         !- Added extra statements to better define the distance map outputs.
+         !- Tested generation with multiple of Professor Schaefers supplied test maps (utilizing the load feature) and fixed some logic with inaccessible areas.
+
+2/20 KJK - Created README
+
+2/25 KJK - Created common struct for both the PC and any other characters that would appear on the map.
+         - Recreated Priority Queue to accept PC/Monster information rather than coordinates.
+         - Created dungeon.h file to hold structs and protoypes more efficiently. Also gives the character struct to the priority.* files.
+         !- Printed out queue in a list format to confirm the queue operated with the (1000/speed) math correctly.
+
+2/26 KJK - Began working with monster movement.
+         - Set up a way to assign a random set of attributes out of 16 possible combination.
+
+2/28 KJK - Added TRUE/FALSE tags to make returns and other operations more readable for myself.
+         - Implemented successful erratic monsters. All monsters with the erratic trait work as expected.
+         - Tunnelling and non-tunnelling monsters work as expected.
+         - Intelligent, telepathic creatures work and hunt down the PC as expected.
+         - Added print prompts for when the user dies or wins.
+
+         - Created README
+
+3/11 KJK - Procrastinated until adding the character movement and menu options per the Professor's guidelines. These just call on a movement command with no functionality as of now ...
+		 !- Created and tested player movement command. Player now moves and defeats monsters. 
+
+3/13 KJK !- Created function to display the monsters monsters. This clears the terminals and then prints out the type of monster and their location. 
+		 !- Monster list includes monsters who are dead, but notifies you of this status. 
+		 !- Added status information for the user. Includes some helpful messages to random taunts.
+
+		 !- Created function to properly free the character queue, which is necessary for when create a new dungeon / set of monsters upon going to a new floor. 
+		 !- Implemented dungeon generation when player switches between floors. 
+
+		 - Updated README
+		 
+3/27 KJK !- Ported files from .c to .cpp. 
+	     !- Ported structs to classes.
+	     !- Confirmed everything still works
+	     !- Added fog of war and fog of war toggleability.
+	     !- Added teleport tools.
+	     - Updated README
+
+4/3 KJK  !- Created MonsterParser and ParsedMonster (template) classes.
+	     !- Created Dice.h and completed functionality of storing sides, count, and base.
+	     !- Created rollDice() function.
+	     !- Built ParsedMonster functions. Focused on storing inputs from parser into an easily readable and accessible way for future assignments.
+	     !- Implemented MonsterParser. CLion denotes all variables as being parsed correctly.
+	     !- Built printParsedMonsters. Testing led to some debugging with parsing of abilities and colors.
+
+	     !- Finished assignment 1.07.
+	     - Updated readme
+	     !- Created Monster class for future use. This class extends the Character class from within Dungeon.
+	     !- Created generateMonsters function within ParsedMonsters to create a working Monster object from the parsed information.
+
+4/7 KJK  !- Completed integration of Monster class and generateMonsters function.
+
+4/10 KJK !- Created ItemParser and ParsedItem (template) classes.
+         !- Took a note from last week's assignment and completed all function within ItemParser and ParsedItem (including a bitfield for item type).
+         !- Tested Item Parsing by printing out templates. Works like a charm.
+
+         !- Completely overrode the old way we handled monsters and replaced them with objects of the Monster Class. Since we have these as a set of pointers that are descended from Character, we can use them in the queue just fine.
+         !- Monsters now show up throughout the map. All abilities originally integrated are still available.
+         !- Implemented Item drops. Created 10 items that are randomly scattered throughout the dungeon. They serve no function aside from decor.
+         !- Added color to all monsters and items.
+         - Updated README
+
+4/17 KJK !- Added inventory and equipment vectors. 
+		 !- Characters can now add things to inventory.
+		 !- Created monster specs tools. (Cursor to a monster and see its description)
+		 !- Added ability to see what items are equipped or in your inventory. 
+		 !- Changed win conditions. 
+		 !- Monsters and players now deal health based on damage dice. 
+		 !- Killing only occurs when monster drops to <= 0 HP. 
+
+4/18 KJK !- Player can now equip items. (Items that do damage additively stack to player's damage).
+		 !- Fixed crashing issue.
+		 !- Added item viewer.
+
+4/28 KJK !- Fixed ALL crashing issues from the previous assignment. Merely fixed how things were deleted or reused. Things work great now!
+		 !- Implemented lights! When you pick up a torch (or any other light-type objects) your range of view while in the fog of war is expanded!
+		 !- Updated README
+
+4/29 KJK !- Added Ranged Attacks as an option! 
+		 !- Added Poison Ball as a ranged attack option!
+		 !- Updated README
+		 !- Corrected printDungeon() printout
+
+5/1 KJK	 !- Fixed a lot of bugs including: speed compounding, crashing upon moving up multiple floors. 
+		 !- Corrected ranged attacks to work off of RANGED slot and only count for damage from ranged items and other wearables (i.e. no WEAPON or OFFHAND)
+		 !- Corrected poison ball spell to do splash damage!
